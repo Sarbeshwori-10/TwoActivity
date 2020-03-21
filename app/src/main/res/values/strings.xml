@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Activity</string>
+    <string name="app_name">TwoActivity</string>
     <string name="editText">Enter your message here.</string>
     <string name="header">Message Received</string>
     <string name="send">Send</string>

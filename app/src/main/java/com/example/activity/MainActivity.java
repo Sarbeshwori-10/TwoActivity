@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(LOG_TAB, "-------");
+        Log.d(LOG_TAB, "OnCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         messageEdit = findViewById(R.id.editText);
@@ -28,6 +30,62 @@ public class MainActivity extends AppCompatActivity {
         mReplyHeadTextView = findViewById(R.id.text_header_reply);
         mReplyTextView = findViewById(R.id.text_message_reply);
 
+        if (savedInstanceState != null) {
+            boolean isVisible =
+                    savedInstanceState.getBoolean("reply_visible");
+            // Show both the header and the message views. If isVisible is
+            // false or missing from the bundle, use the default layout.
+            if (isVisible) {
+                mReplyHeadTextView.setVisibility(View.VISIBLE);
+                mReplyTextView.setText(savedInstanceState
+                        .getString("reply_text"));
+                mReplyTextView.setVisibility(View.VISIBLE);
+            }
+        }
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(LOG_TAB, "onStart");
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(LOG_TAB, "onPause");
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(LOG_TAB, "onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(LOG_TAB, "onRestart");
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LOG_TAB, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAB, "onDestroy");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mReplyHeadTextView.getVisibility() == View.VISIBLE) {
+            outState.putBoolean("reply_visible", true);
+            outState.putString("reply_text",
+                    mReplyTextView.getText().toString());
+        }
     }
 
     public void nextPage(View view) {
